@@ -204,7 +204,7 @@ HdTimeSampleArray<VtMatrix4dArray, 2> HdRprInstancer::SampleInstanceTransforms(S
         auto& transforms = sa.values[i];
         transforms = VtMatrix4dArray(instanceIndices.size(), xf);
 
-        if (translates.count > 0 && translates.values[0].IsArrayValued()) {
+        if (!translates.values.empty() && translates.values[0].IsArrayValued()) {
             auto& type = translates.values[0].GetElementTypeid();
             if (type == typeid(GfVec3f)) {
                 ApplyTransform<TranslateOp, GfVec3f>(translates, instanceIndices, t, transforms.data());
@@ -215,7 +215,7 @@ HdTimeSampleArray<VtMatrix4dArray, 2> HdRprInstancer::SampleInstanceTransforms(S
             }
         }
 
-        if (rotates.count > 0 && rotates.values[0].IsArrayValued()) {
+        if (!rotates.values.empty() && rotates.values[0].IsArrayValued()) {
             auto& type = rotates.values[0].GetElementTypeid();
             if (type == typeid(GfQuath)) {
                 ApplyTransform<RotateOp, GfQuath>(rotates, instanceIndices, t, transforms.data());
@@ -226,7 +226,7 @@ HdTimeSampleArray<VtMatrix4dArray, 2> HdRprInstancer::SampleInstanceTransforms(S
             }
         }
 
-        if (scales.count > 0 && scales.values[0].IsArrayValued()) {
+        if (!scales.values.empty() && scales.values[0].IsArrayValued()) {
             auto& type = scales.values[0].GetElementTypeid();
             if (type == typeid(GfVec3f)) {
                 ApplyTransform<ScaleOp, GfVec3f>(scales, instanceIndices, t, transforms.data());
@@ -237,7 +237,7 @@ HdTimeSampleArray<VtMatrix4dArray, 2> HdRprInstancer::SampleInstanceTransforms(S
             }
         }
 
-        if (instanceXforms.count > 0 && instanceXforms.values[0].IsArrayValued()) {
+        if (!instanceXforms.values.empty() && instanceXforms.values[0].IsArrayValued()) {
             auto& type = instanceXforms.values[0].GetElementTypeid();
             if (type == typeid(GfMatrix4d)) {
                 ApplyTransform<TransformOp, GfMatrix4d>(instanceXforms, instanceIndices, t, transforms.data());
